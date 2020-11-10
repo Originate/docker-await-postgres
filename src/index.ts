@@ -4,6 +4,7 @@ import getPort from 'get-port';
 import { ClientConfig, Client } from 'pg';
 import retry from 'p-retry';
 import { PassThrough } from 'stream';
+import ON_DEATH from 'death';
 
 const docker = new Docker();
 
@@ -142,6 +143,13 @@ export type Config = {
    * files and created tables etc.
    */
   theMagicWord?: string;
+
+  /**
+   * Set SIGINT, SIGQUIT, and SIGTERM hooks to ensure that the database container is
+   * stopped when the process exits. The container is also stopped on uncaught
+   * exceptions.
+   */
+  ensureShutdown?: boolean;
 };
 
 export type Result = {
@@ -186,6 +194,12 @@ export const startPostgresContainer = async (
       `POSTGRES_DB=${config.database}`,
     ],
   });
+
+  if (config.ensureShutdown) {
+    ON_DEATH({ uncaughtException: true })(() => {
+      container.stop();
+    });
+  }
 
   await container.start();
 

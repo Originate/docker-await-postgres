@@ -41,6 +41,7 @@ const config = {
   password: '12345',
   database: 'database',
   image: 'postgres',
+  ensureShutdown: true, // stop the database container if the process crashes
 };
 const { stop, port } = await startPostgresContainer(config);
 
