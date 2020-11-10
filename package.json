@@ -13,6 +13,9 @@
     "Sebastian Sebald <sebastian.sebald@reservix.de>",
     "Jesse Hallett <jesse.hallett@originate.com>"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
     "node": ">=8"
   },
