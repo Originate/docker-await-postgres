@@ -25,8 +25,8 @@ connection errors, because the _postgres_ server will just kill all connections 
 Using the Docker API (via `dockerode` or similar) will only tell you if the container is ready, but not if services inside the container are ready
 (you can read more about this here: [docker-library/postgres/#146](https://github.com/docker-library/postgres/issues/146)).
 
-`docker-await-postgres` will read the server logs and long poll until the _postgres_ server is trulry ready. So that tests only run when
-the server is trurly ready to accept connections.
+`docker-await-postgres` will read the server logs and long poll until the _postgres_ server is truly ready. So that tests only run when
+the server is truly ready to accept connections.
 Start `postgres` docker container and wait until it is truly ready.
 
 ## Usage
